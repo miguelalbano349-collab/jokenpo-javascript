@@ -1,0 +1,183 @@
+
+from IPython.display import HTML, display
+
+jogo = """
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jokenpô - Pedra, Papel e Tesoura</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #101827;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 35px 15px;
+}
+
+.container {
+    max-width: 650px;
+    margin: auto;
+    background: #1e293b;
+    padding: 30px 15px;
+    border-radius: 20px;
+}
+
+h1 {
+    color: #38bdf8;
+    font-size: 38px;
+}
+
+p {
+    font-size: 19px;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 15px 22px;
+    margin: 8px;
+    border-radius: 12px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #0ea5e9;
+    transform: scale(1.08);
+}
+
+#resultado {
+    color: #facc15;
+    margin: 30px 0;
+    line-height: 1.8;
+}
+
+#placar {
+    font-size: 18px;
+    color: #38bdf8;
+}
+
+.animacao {
+    animation: aparecer 0.5s ease;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎮 JOKENPÔ</h1>
+
+    <p>Pedra, Papel ou Tesoura?</p>
+    <p>Escolha sua jogada abaixo:</p>
+
+    <button onclick="jogar('pedra')">🪨 Pedra</button>
+    <button onclick="jogar('papel')">📄 Papel</button>
+    <button onclick="jogar('tesoura')">✂️ Tesoura</button>
+
+    <h2 id="resultado">Faça sua escolha!</h2>
+
+    <div id="placar">
+        Vitórias: 0 | Derrotas: 0 | Empates: 0
+    </div>
+
+    <br>
+
+    <button onclick="reiniciar()">🔄 Reiniciar partida</button>
+
+</div>
+
+<script>
+let vitorias = 0;
+let derrotas = 0;
+let empates = 0;
+
+function jogar(escolhaUsuario) {
+
+    const opcoes = ['pedra', 'papel', 'tesoura'];
+
+    const escolhaComputador =
+        opcoes[Math.floor(Math.random() * 3)];
+
+    let mensagem = '';
+
+    if (escolhaUsuario === escolhaComputador) {
+        mensagem = '🤝 Empate!';
+        empates++;
+    }
+
+    else if (
+        (escolhaUsuario === 'pedra' && escolhaComputador === 'tesoura') ||
+        (escolhaUsuario === 'papel' && escolhaComputador === 'pedra') ||
+        (escolhaUsuario === 'tesoura' && escolhaComputador === 'papel')
+    ) {
+        mensagem = '🏆 Você venceu!';
+        vitorias++;
+    }
+
+    else {
+        mensagem = '💻 O computador venceu!';
+        derrotas++;
+    }
+
+    const resultado = document.getElementById('resultado');
+
+    resultado.innerHTML =
+        'Você escolheu: ' + escolhaUsuario +
+        '<br>Computador escolheu: ' + escolhaComputador +
+        '<br><br>' + mensagem;
+
+    resultado.classList.remove('animacao');
+    void resultado.offsetWidth;
+    resultado.classList.add('animacao');
+
+    atualizarPlacar();
+}
+
+function atualizarPlacar() {
+    document.getElementById('placar').innerHTML =
+        'Vitórias: ' + vitorias +
+        ' | Derrotas: ' + derrotas +
+        ' | Empates: ' + empates;
+}
+
+function reiniciar() {
+    vitorias = 0;
+    derrotas = 0;
+    empates = 0;
+
+    document.getElementById('resultado').innerHTML =
+        'Faça sua escolha!';
+
+    atualizarPlacar();
+}
+</script>
+
+</body>
+</html>
+"""
+
+display(HTML(jogo))
