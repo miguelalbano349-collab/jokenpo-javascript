@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokenpô - Pedra, Papel e Tesoura</title>
+</head>
+<body>
+
+    <h1>JOKENPÔ</h1>
+    <p>Escolha sua jogada!</p>
+
+    <button onclick="jogar('pedra')">🪨 Pedra</button>
+    <button onclick="jogar('papel')">📄 Papel</button>
+    <button onclick="jogar('tesoura')">✂️ Tesoura</button>
+
+    <h2 id="resultado">Faça sua escolha!</h2>
+
+    <button onclick="reiniciar()">Reiniciar</button>
+
+</body>
+</html>
+
+
